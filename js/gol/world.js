@@ -33,14 +33,14 @@ function World(canvasId, cols, rows, cellSize) {
                 if (!(i in this.grid)) {
                     this.grid[i] = [];
                 }
-                this.drawCell(i, j, this.neutralState);
+                this.drawCell(i, j, this.neutralState, false);
             }
         }
     };
 
-    this.drawCell = function (i, j, state) {
+    this.drawCell = function (i, j, state, leaveTrail) {
         if (state == this.neutralState) {
-            if ((i in this.grid) && (j in this.grid[i])) {
+            if (leaveTrail && (i in this.grid) && (j in this.grid[i])) {
                 this.context.fillStyle = players[this.grid[i][j]].trailColor;
             }
             else {
@@ -65,21 +65,18 @@ function World(canvasId, cols, rows, cellSize) {
         for (var i in newState) {
             for (var j in newState[i]) {
                 if (newState[i][j] != this.grid[i][j]) {
-                    this.drawCell(i, j, newState[i][j]);
+                    this.drawCell(i, j, newState[i][j], true);
                 }
             }
         }
     };
 
-    this.processClick = function (x, y) {
-        var col = Math.floor(x / (this.cellSize + 1)) - 1;
-        var row = Math.floor(y / (this.cellSize + 1)) - 1;
-
+    this.processClick = function (col, row) {
         if (this.grid[col][row] == this.player) {
-            this.drawCell(col, row, '*');
+            this.drawCell(col, row, '*', false);
         }
         else {
-            this.drawCell(col, row, this.player);
+            this.drawCell(col, row, this.player, false);
         }
     };
 
@@ -87,9 +84,12 @@ function World(canvasId, cols, rows, cellSize) {
         buttonDown: false,
 
         mouseDown: function (event) {
-			worldInstance.processClick(event.pageX, event.pageY);
-			worldInstance.mouseHandler.lastX      = event.pageX;
-			worldInstance.mouseHandler.lastY      = event.pageY;
+			var col = worldInstance.mouseHandler.getEventCol(event);
+			var row = worldInstance.mouseHandler.getEventRow(event);
+
+			worldInstance.processClick(col, row);
+			worldInstance.mouseHandler.lastCol    = col;
+			worldInstance.mouseHandler.lastRow    = row;
 			worldInstance.mouseHandler.buttonDown = true;
         },
 
@@ -98,14 +98,25 @@ function World(canvasId, cols, rows, cellSize) {
         },
 
         mouseMove: function (event) {
-            if (worldInstance.mouseHandler.buttonDown && (event.pageX < this.width) && (event.pageY < this.height)) {
-                if ((event.pageX !== worldInstance.mouseHandler.lastX) || event.pageY !== worldInstance.mouseHandler.lastY) {
-					worldInstance.processClick(event.pageX, event.pageY);
-					worldInstance.mouseHandler.lastX = event.pageX;
-					worldInstance.mouseHandler.lastY = event.pageY;
+			var col = worldInstance.mouseHandler.getEventCol(event);
+			var row = worldInstance.mouseHandler.getEventRow(event);
+
+            if (worldInstance.mouseHandler.buttonDown && (col < worldInstance.cols) && (row < worldInstance.rows)) {
+                if ((col !== worldInstance.mouseHandler.lastCol) || row !== worldInstance.mouseHandler.lastRow) {
+					worldInstance.processClick(col, row);
+					worldInstance.mouseHandler.lastCol = col;
+					worldInstance.mouseHandler.lastRow = row;
                 }
             }
-        }
+        },
+
+		getEventCol: function (event) {
+			return Math.floor(event.pageX / worldInstance.cellSize);
+		},
+
+		getEventRow: function (event) {
+			return Math.floor(event.pageY / worldInstance.cellSize);
+		}
     }
 
 	this.draw();
