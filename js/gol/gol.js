@@ -118,7 +118,7 @@ var gameOfLife = {
 }
 
 $(document).ready(function () {
-	world.init(1, 300, 200, 1);
+	world.init(1, 300, 200, 4);
 	gameOfLife.init();
 	alert('bubu');
 	gameOfLife.iterate();
