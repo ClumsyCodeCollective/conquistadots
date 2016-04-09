@@ -94,7 +94,7 @@ function getGameSettings() {
 }
 
 $(document).ready(function() {
-    configWorld = new World("initCanvas", 8, 8, 25);
+    configWorld = new World("initCanvas", 8, 8, 25, 1);
     configWorld.enablePlacementForPlayer(-1);
 
     game = new GameOfLife("gameCanvas");

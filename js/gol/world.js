@@ -1,9 +1,10 @@
-function World(canvasId, cols, rows, cellSize) {
+function World(canvasId, cols, rows, cellSize, border) {
 	var worldInstance = this;
 
 	this.cellSize = cellSize;
 	this.cols = cols;
 	this.rows = rows;
+	this.border = border;
 	this.canvas = document.getElementById(canvasId);
 	this.context = this.canvas.getContext('2d');
 	this.player = null;
@@ -26,8 +27,8 @@ function World(canvasId, cols, rows, cellSize) {
 	};
 
 	this.draw = function () {
-		var width = this.cols * this.cellSize;
-		var height = this.rows * this.cellSize;
+		var width = this.cols * (this.cellSize + this.border);
+		var height = this.rows * (this.cellSize + this.border);
 
 		this.canvas.setAttribute('height', height);
 		this.canvas.setAttribute('width', width);
@@ -67,8 +68,8 @@ function World(canvasId, cols, rows, cellSize) {
 		}
 
 		this.context.fillRect(
-			this.cellSize * i,
-			this.cellSize * j,
+			(this.cellSize + this.border) * i,
+			(this.cellSize + this.border) * j,
 			this.cellSize,
 			this.cellSize
 		);

@@ -9,7 +9,7 @@ function GameOfLife(canvasId) {
 	this.height = 120;
 	this.playerCount = null;
 	this.result = [];
-	this.world = new World(canvasId, this.width, this.height, 4);
+	this.world = new World(canvasId, this.width, this.height, 4, 0);
 	this.cellLogic = null;
 
 	this.draw = function () {
@@ -35,7 +35,8 @@ function GameOfLife(canvasId) {
 		for (var row = 0; row < player.initialState.length; row++) {
 			for (var col = 0; col < player.initialState[row].length; col++) {
 				var prevState = this.state[player.x + col][player.y + row];
-				this.newState[player.x + col][player.y + row] = player.initialState[row][col] ? i : prevState;
+				this.newState[player.x + col][player.y + row] =
+					(player.initialState[row][col] && player.initialState[row][col] != "*") ? i : prevState;
 			}
 		}
 	};
