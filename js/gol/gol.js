@@ -153,7 +153,7 @@ function GameOfLife(canvasId) {
 		this.draw();
 	};
 
-	this.init();
+	//this.init();
 }
 
 $(document).ready(function () {

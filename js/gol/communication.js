@@ -125,7 +125,7 @@ $(document).ready(function() {
 
             for (var i in users) {
                 if (users[i].index >= 0) {
-                    
+
                     var player = new Player(
                         users[i].username,
                         playerColors[i][0],
@@ -155,6 +155,7 @@ $(document).ready(function() {
                 }
                 players.push(player);
             }
+            game.init();
             setInterval(function(){game.iterate()},10)
         }
 
