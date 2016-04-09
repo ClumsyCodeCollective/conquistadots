@@ -97,7 +97,7 @@ $(document).ready(function() {
         gameSession.on('channel:opened:chat', function (id, dc) {
             channels.push(dc);
             var id = channels.indexOf(dc);
-            send(id, {'action':'get_username'});
+            sendToChannel(dc, {'action':'get_username'});
             rtcUsers[id] = {'username':'', 'status': 'connected'};
             dc.onmessage = function (evt) {
                 message = JSON.parse(evt.data);
