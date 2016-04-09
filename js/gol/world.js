@@ -9,6 +9,12 @@ function World(canvasId, cols, rows, cellSize) {
 	this.player = null;
 	this.neutralState = '*';
 	this.forbiddenState = 'x';
+	this.colors = {
+		neutral:   "#EEEEEE",
+		forbidden: "#221100",
+		border:    "#AAAAAA",
+		placement: "#006666"
+	};
 	this.grid = [];
 
 	this.enablePlacementForPlayer = function (player) {
@@ -26,7 +32,7 @@ function World(canvasId, cols, rows, cellSize) {
 		this.canvas.setAttribute('height', height);
 		this.canvas.setAttribute('width', width);
 
-		this.context.fillStyle = '#AAAAAA';
+		this.context.fillStyle = this.colors.border;
 		this.context.fillRect(0, 0, width, height);
 
 		for (var i = 0; i < this.cols; i++) {
@@ -41,14 +47,14 @@ function World(canvasId, cols, rows, cellSize) {
 
 	this.drawCell = function (i, j, state, leaveTrail) {
 		if (state == this.forbiddenState) {
-			this.context.fillStyle = "#333333";
+			this.context.fillStyle = this.colors.forbidden;
 		}
 		else if (state == this.neutralState) {
 			if (leaveTrail && (i in this.grid) && (j in this.grid[i])) {
 				this.context.fillStyle = players[this.grid[i][j]].trailColor;
 			}
 			else {
-				this.context.fillStyle = "#F3F3F3";
+				this.context.fillStyle = this.colors.neutral;
 			}
 		}
 		else {
@@ -56,7 +62,7 @@ function World(canvasId, cols, rows, cellSize) {
 				this.context.fillStyle = players[state].color;
 			}
 			else {
-				this.context.fillStyle = "#006666";
+				this.context.fillStyle = this.colors.placement;
 			}
 		}
 

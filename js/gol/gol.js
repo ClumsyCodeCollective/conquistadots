@@ -2,6 +2,7 @@ function GameOfLife(canvasId) {
 	var gameInstance = this;
 
 	this.deadCellPlaceholder = '*';
+	this.forbiddenPlaceholder = 'x';
 	this.state = [];
 	this.newState = [];
 	this.width = 240;
@@ -21,7 +22,7 @@ function GameOfLife(canvasId) {
 		for (var x = 0; x < this.width; x++) {
 			for (var y = 0; y < this.height; y++) {
 				this.state[x][y] = this.newState[x][y];
-				if (this.newState[x][y] != this.deadCellPlaceholder) {
+				if (this.newState[x][y] != this.deadCellPlaceholder && this.newState[x][y] != this.forbiddenPlaceholder) {
 					this.result[this.newState[x][y]]++;
 				}
 			}
@@ -33,15 +34,19 @@ function GameOfLife(canvasId) {
 	this.placePlayer = function (i, player) {
 		for (var row = 0; row < player.initialState.length; row++) {
 			for (var col = 0; col < player.initialState[row].length; col++) {
-				this.newState[player.x + col][player.y + row] = player.initialState[row][col] ? i : this.deadCellPlaceholder;
+				var prevState = this.state[player.x + col][player.y + row];
+				this.newState[player.x + col][player.y + row] = player.initialState[row][col] ? i : prevState;
 			}
 		}
 	};
 
 	this.init = function () {
 		this.playerCount = players.length;
-		this.cellLogic = new CellLogic(this.deadCellPlaceholder, this.playerCount);
+		this.cellLogic = new CellLogic(this.deadCellPlaceholder, this.forbiddenPlaceholder, this.playerCount);
 
+		this.state = MAP_VALLEY.slice();
+		this.newState = MAP_VALLEY.slice();
+/*
 		for (var x = 0; x < this.width; x++) {
 			this.state[x] = [];
 			this.newState[x] = [];
@@ -51,6 +56,7 @@ function GameOfLife(canvasId) {
 				this.newState[x][y] = this.deadCellPlaceholder;
 			}
 		}
+*/
 
 		for (i = 0; i < this.playerCount; i++) {
 			this.placePlayer(i, players[i]);
@@ -81,56 +87,56 @@ function GameOfLife(canvasId) {
 
 		if (x > 0 && y > 0) {
 			value = this.state[x - 1][y - 1];
-			if (value != this.deadCellPlaceholder) {
+			if (value != this.deadCellPlaceholder && value != this.forbiddenPlaceholder) {
 				neighbours[value]++;
 			}
 		}
 
 		if (y > 0) {
 			value = this.state[x][y - 1];
-			if (value != this.deadCellPlaceholder) {
+			if (value != this.deadCellPlaceholder && value != this.forbiddenPlaceholder) {
 				neighbours[value]++;
 			}
 		}
 
 		if (x < this.width - 2 && y > 0) {
 			value = this.state[x + 1][y - 1];
-			if (value != this.deadCellPlaceholder) {
+			if (value != this.deadCellPlaceholder && value != this.forbiddenPlaceholder) {
 				neighbours[value]++;
 			}
 		}
 
 		if (x > 0) {
 			value = this.state[x - 1][y];
-			if (value != this.deadCellPlaceholder) {
+			if (value != this.deadCellPlaceholder && value != this.forbiddenPlaceholder) {
 				neighbours[value]++;
 			}
 		}
 
 		if (x < this.width - 2) {
 			value = this.state[x + 1][y];
-			if (value != this.deadCellPlaceholder) {
+			if (value != this.deadCellPlaceholder && value != this.forbiddenPlaceholder) {
 				neighbours[value]++;
 			}
 		}
 
 		if (x > 0 && y < this.height - 2) {
 			value = this.state[x - 1][y + 1];
-			if (value != this.deadCellPlaceholder) {
+			if (value != this.deadCellPlaceholder && value != this.forbiddenPlaceholder) {
 				neighbours[value]++;
 			}
 		}
 
 		if (y < this.height - 2) {
 			value = this.state[x][y + 1];
-			if (value != this.deadCellPlaceholder) {
+			if (value != this.deadCellPlaceholder && value != this.forbiddenPlaceholder) {
 				neighbours[value]++;
 			}
 		}
 
 		if (x < this.width - 2 && y - this.height - 2) {
 			value = this.state[x + 1][y + 1];
-			if (value != this.deadCellPlaceholder) {
+			if (value != this.deadCellPlaceholder && value != this.forbiddenPlaceholder) {
 				neighbours[value]++;
 			}
 		}

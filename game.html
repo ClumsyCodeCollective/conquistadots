@@ -3,6 +3,7 @@
 <head>
 	<script src="js/bower_components/jquery/dist/jquery.js"></script>
 	<script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/gol/maps/valleys.js"></script>
 	<script src="js/gol/players.js"></script>
 	<script src="js/gol/control.js"></script>
 	<script src="js/gol/world.js"></script>
@@ -24,7 +25,7 @@
 
 	<div id="gameStart" class="row text-center">
 		<div class="col-md-4 text-center box" id="opponent-0">
-			Oponent #1 <br/>
+			Opponent #1 <br/>
 			<span class="name"></span>
 			<span class="status"></span>
 		</div>
@@ -84,13 +85,13 @@
 			</div>
 		</div>
 		<div class="col-md-4 text-center box" id="opponent-1">
-			Oponent #2 <br/>
+			Opponent #2 <br/>
 			<span class="name"></span>
 			<span class="status"></span>
 		</div>
 	</div>
 
-	<div id="game" style="display: none">
+	<div id="game" style="display: none; padding-left: 10px;">
 		<canvas id="gameCanvas" width="960" height="480"></canvas>
 		<div id="game-info">
 			<table>

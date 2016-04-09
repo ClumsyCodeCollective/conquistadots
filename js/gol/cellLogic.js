@@ -1,5 +1,6 @@
-function CellLogic(deadCellPlaceholder, playerCount) {
+function CellLogic(deadCellPlaceholder, forbiddenPlaceholder, playerCount) {
 	this.deadCellPlaceholder = deadCellPlaceholder;
+	this.forbiddenPlaceholder = forbiddenPlaceholder;
 	this.playerCount = playerCount;
 	this.getRandom = getRandomGenerator();
 
@@ -50,7 +51,7 @@ function CellLogic(deadCellPlaceholder, playerCount) {
 			random = this.getRandom(100);
 
 			return chance > random ? playerIndex : this.deadCellPlaceholder;
-
+	
 		}
 
 		if (supporters == 2 || supporters == 3) {
@@ -67,7 +68,10 @@ function CellLogic(deadCellPlaceholder, playerCount) {
 	};
 
 	this.getNewValue = function (value, neighbours) {
-		if (value == this.deadCellPlaceholder) {
+		if (value == this.forbiddenPlaceholder) {
+			return this.forbiddenPlaceholder;
+		}
+		else if (value == this.deadCellPlaceholder) {
 			return this.getNewValueForDeadCell(neighbours);
 		}
 		else {
