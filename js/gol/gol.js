@@ -127,6 +127,9 @@ var gameOfLife = {
 $(document).ready(function () {
 	world.init(1, 300, 200, 4);
 	gameOfLife.init();
-	setInterval(function(){gameOfLife.iterate()},1000);
-
+	$("#go").on("click", "",
+		function () {
+			setInterval(function(){gameOfLife.iterate()},1000)
+		}
+	);
 });
