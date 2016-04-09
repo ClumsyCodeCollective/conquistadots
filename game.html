@@ -33,8 +33,10 @@
 			<input type="text" id="username" placeholder="Username"/>
 			<input class="btn btn-default" type="button" id="connect" value="Connect">
 		</div>
-		<div class="toggler" style="display:none">
-			Status: <span id="playerCount"></span>
+		<div class="toggler" style="display:none" id="me">
+            Name: <span class="name"></span>
+            Status: <span class="status"></span>
+			<span class="error"></span>
 			<span id="playerStatus"></span>
 			<div id="wrapper">
 				<canvas id="canvas" width="200" height="200"></canvas>

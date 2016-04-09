@@ -3,6 +3,8 @@ var realmName = 'GameOfCode';
 var gameSession;
 var dynamicNames=true;
 
+var maxConnections = 2;
+
 var ownName;
 var ownStatus = 'pending';
 
@@ -21,9 +23,13 @@ function getRandomName() {
 function updatePlayerStatus() {
     $('#playerCount').html((channels.length + 1) + ' players');
 
-    var playerStatus = ownName + '(' + ownStatus + ')' + '<br/>';
+    $('#me .name').html(ownName);
+    $('#me .status').html(ownStatus);
+
     rtcUsers.forEach(function(rtcUser) {
-        playerStatus = playerStatus + rtcUser.username + '(' + rtcUser.status + ')' + '</br>' ;
+        var idx = rtcUsers.indexOf(rtcUser);
+        $('#opponent-' + idx + ' .name').html(rtcUser.username);
+        $('#opponent-' + idx + ' .status').html(rtcUser.status);
     });
     $('#playerStatus').html(playerStatus);
 }
@@ -95,6 +101,11 @@ $(document).ready(function() {
         });
 
         gameSession.on('channel:opened:chat', function (id, dc) {
+            if (channels.length + 1 >= maxConnections) {
+                sendToChannel(dc, {'error':'realm is full'});
+                return;
+            }
+
             channels.push(dc);
             var id = channels.indexOf(dc);
             sendToChannel(dc, {'action':'get_username'});
@@ -105,13 +116,22 @@ $(document).ready(function() {
                     sendToChannel(dc, {'action':'username_reply', 'username':ownName});
                 }
                 else if (message.action == 'username_reply') {
-                    rtcUsers[id].username = message.username;
+                    if (rtcUsers[id] != undefined) {
+                        rtcUsers[id].username = message.username;
+                    }
                 }
                 else if (message.action == 'get_status') {
                     sendToChannel(dc, {'action':'status_reply', 'status': ownStatus})
                 }
                 else if (message.action == 'status_reply') {
-                    rtcUsers[id].status = message.status;
+                    if (rtcUsers[id] != undefined) {
+                        rtcUsers[id].status = message.status;
+                    }
+                }
+                else {
+                    $('#me .error').html('ERROR:' + message.error);
+                    $('#me .status').html('disconnected');
+                    clearInterval(statusRefreshInterval);
                 }
             };
 
