@@ -1,56 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="js/bower_components/jquery/dist/jquery.js"></script>
-    <script src="bootstrap/js/bootstrap.js"></script>
-    <script src="js/gol/players.js"></script>
-    <script src="js/gol/world.js"></script>
-    <script src="js/bower_components/rtc/dist/rtc.min.js"></script>
-    <script src="js/gol/communication.js"></script>
-    <script src="js/gol/random.js"></script>
-    <script src="js/gol/cellLogic.js"></script>
-    <script src="js/gol/gol.js"></script>
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+	<script src="js/bower_components/jquery/dist/jquery.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+	<script src="js/gol/players.js"></script>
+	<script src="js/gol/world.js"></script>
+	<script src="js/bower_components/rtc/dist/rtc.min.js"></script>
+	<script src="js/gol/communication.js"></script>
+	<script src="js/gol/random.js"></script>
+	<script src="js/gol/cellLogic.js"></script>
+	<script src="js/gol/gol.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
 </head>
+	
 <body>
 <!--<div id="wrapper">-->
-    <!--<canvas id="canvas" width="1200" height="900"></canvas>-->
+	<!--<canvas id="canvas" width="1200" height="900"></canvas>-->
 <!--</div>-->
 <button id="go">go</button>
 <div id="gameStart">
-    <div class=".col-md-4 toggler" id="opponent-0" style="display:none">
-        Oponent #1 <br/>
-        <span class="name"></span>
-        <span class="status"></span>
-    </div>
-    <div class=".col-md-4">
-        <div class="toggler">
-            <label for="realmName">Realm name</label>
-            <input type="text" id="realmName" placeholder="Real name" value="GameOfCode"/>
-            <label for="username">Your name</label>
-            <input type="text" id="username" placeholder="Username"/>
-            <input class="btn btn-default" type="button" id="connect" value="Connect">
-        </div>
-        <div class="toggler" style="display:none">
-            Status: <span id="playerCount"></span>
-            <span id="playerStatus"></span>
-            <div id="wrapper">
-                <canvas id="canvas" width="200" height="200"></canvas>
-            </div>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    world.init(8, 8, 25);
-                    world.enablePlacementForPlayer(1);
-                });
-            </script>
-            <input class="btn btn-default" type="button" id="ready" value="Fight">
-        </div>
-    </div>
-    <div class=".col-md-4 toggler" id="opponent-1" style="display:none">
-        Oponent #2 <br/>
-        <span class="name"></span>
-        <span class="status"></span>    </div>
+	<div class=".col-md-4 toggler" id="opponent-0" style="display:none">
+		Oponent #1 <br/>
+		<span class="name"></span>
+		<span class="status"></span>
+	</div>
+	<div class=".col-md-4">
+		<div class="toggler">
+			<label for="realmName">Realm name</label>
+			<input type="text" id="realmName" placeholder="Real name" value="GameOfCode"/>
+			<label for="username">Your name</label>
+			<input type="text" id="username" placeholder="Username"/>
+			<input class="btn btn-default" type="button" id="connect" value="Connect">
+		</div>
+		<div class="toggler" style="display:none">
+			Status: <span id="playerCount"></span>
+			<span id="playerStatus"></span>
+			<div id="wrapper">
+				<canvas id="canvas" width="200" height="200"></canvas>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function () {
+					world.init(8, 8, 25);
+					world.enablePlacementForPlayer(1);
+				});
+			</script>
+			<input class="btn btn-default" type="button" id="ready" value="Fight">
+		</div>
+	</div>
+	<div class=".col-md-4 toggler" id="opponent-1" style="display:none">
+		Oponent #2 <br/>
+		<span class="name"></span>
+		<span class="status"></span>	</div>
 </div>
 
 </body>
