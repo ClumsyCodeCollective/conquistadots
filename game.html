@@ -11,70 +11,107 @@
 	<script src="js/gol/gol.js"></script>
 	<script src="js/bower_components/rtc/dist/rtc.min.js"></script>
 	<script src="js/gol/communication.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/conquistadots.css">
+
 	<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
 </head>
-	
 <body>
-<div id="gameStart">
-	<div class=".col-md-4 toggler" id="opponent-0" style="display:none">
-		Oponent #1 <br/>
-		<span class="name"></span>
-		<span class="status"></span>
+	<div id="header">
+		<h1>Conquistadots</h1>
 	</div>
-	<div class=".col-md-4">
-		<div class="toggler">
-			<label for="realmName">Realm name</label>
-			<input type="text" id="realmName" placeholder="Real name" value="GameOfCode29"/>
-			<label for="username">Your name</label>
-			<input type="text" id="username" placeholder="Username"/>
-			<input class="btn btn-default" type="button" id="connect" value="Connect">
-		</div>
-		<div class="toggler" style="display:none" id="me">
-			Name: <span class="name"></span>
-			Status: <span class="status"></span>
-			<span class="error"></span>
-			<span id="playerStatus"></span>
-			<div id="wrapper">
-				<canvas id="initCanvas" width="200" height="200"></canvas>
-			</div>
-			<label for="reproduction">Reproduction</label>
-			<input type="checkbox" id="reproduction"/><br/>
-			<label for="survival">Survival</label>
-			<input type="checkbox" id="survival"/><br/>
-			<label for="defense">Defense</label>
-			<input type="checkbox" id="defense"/><br/>
-			<label for="attack">Attack</label>
-			<input type="checkbox" id="attack"/><br/>
-			<input class="btn btn-default" type="button" id="ready" value="Fight">
-		</div>
-	</div>
-	<div class=".col-md-4 toggler" id="opponent-1" style="display:none">
-		Oponent #2 <br/>
-		<span class="name"></span>
-		<span class="status"></span>
-	</div>
-</div>
-<div id="game" style="display: none">
-	<canvas id="gameCanvas" width="960" height="480"></canvas>
-	<div id="game-info">
-		<table>
-			<tr id="p1">
-				<td class="name"></td>
-				<td class="result"></td>
-			</tr>
-			<tr id="p2">
-				<td class="name"></td>
-				<td class="result"></td>
-			</tr>
-			<tr id="p3">
-				<td class="name"></td>
-				<td class="result"></td>
-			</tr>
-		</table>
-	</div>
-	<button id="go">go</button>
-</div>
 
+	<div id="gameStart" class="row text-center">
+		<div class="col-md-4 text-center box" id="opponent-0">
+			Oponent #1 <br/>
+			<span class="name"></span>
+			<span class="status"></span>
+		</div>
+		<div class="col-md-4 text-center">
+			<div class="col-md-12 toggler box">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<label for="realmName">Realm name</label>
+					</div>
+					<div class="col-md-5">
+						<input type="text" id="realmName" placeholder="Real name" value="GameOfCode29"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<label for="username">Your name</label>
+					</div>
+					<div class="col-md-5">
+						<input type="text" id="username" placeholder="Username"/>
+					</div>
+				</div>
+				<div class="row text-center">
+					<input class="btn btn-default" type="button" id="connect" value="Connect">
+				</div>
+			</div>
+			<div class="col-md-12 toggler box text-center" style="display:none" id="me">
+				<div>Name: <span class="name"></span></div>
+				<div>Status: <span class="status"></span></div>
+				<div>
+					<span class="error"></span>
+					<span id="playerStatus"></span>
+				</div>
+				<div id="wrapper">
+					<canvas id="initCanvas" width="200" height="200"></canvas>
+				</div>
+				<div class="col-md-12 skills">
+					<div>
+						<label for="reproduction">Reproduction</label>
+						<input type="checkbox" id="reproduction"/>
+					</div>
+					<div>
+						<label for="survival">Survival</label>
+						<input type="checkbox" id="survival"/>
+					</div>
+					<div>
+						<label for="defense">Defense</label>
+						<input type="checkbox" id="defense"/>
+					</div>
+					<div >
+						<label for="attack">Attack</label>
+						<input type="checkbox" id="attack"/>
+					</div>
+					<div>
+						<input class="btn btn-default" type="button" id="ready" value="Fight">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 text-center box" id="opponent-1">
+			Oponent #2 <br/>
+			<span class="name"></span>
+			<span class="status"></span>
+		</div>
+	</div>
+
+	<div id="game" style="display: none">
+		<canvas id="gameCanvas" width="960" height="480"></canvas>
+		<div id="game-info">
+			<table>
+				<tr id="p0">
+					<td class="name"></td>
+					<td class="result"></td>
+				</tr>
+				<tr id="p1">
+					<td class="name"></td>
+					<td class="result"></td>
+				</tr>
+				<tr id="p2">
+					<td class="name"></td>
+					<td class="result"></td>
+				</tr>
+			</table>
+			<a href="/game.html">Quit current game</a>
+		</div>
+		<button id="go">go</button>
+	</div>
+
+	<div id="footer">© 2016 - Clumsy Code Collective</div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 function Player(name, color, trailColor, initialState, x, y, reproductionMod, survivalMod, defenseMod, attackMod) {
-	this.name = name
+	this.name = name;
 	this.color = color;
 	this.trailColor = trailColor;
 	this.initialState = initialState;
