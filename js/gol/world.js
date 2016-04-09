@@ -70,7 +70,7 @@ var world = {
         var col = Math.floor(x / this.cellSize);
         var row = Math.floor(y / this.cellSize);
 
-        this.drawCell(col, row, this.player);
+//        this.drawCell(col, row, this.player);
     },
 
     setState: function (newState) {
@@ -84,19 +84,21 @@ var world = {
     },
 
     mouseHandler: {
+        buttonDown: false,
+
         mouseDown: function (event) {
             world.processClick(event.pageX, event.pageY);
-            world.mouseHandler.lastX     = event.pageX;
-            world.mouseHandler.lastY     = event.pageY;
-            world.mouseHandler.mouseDown = true;
+            world.mouseHandler.lastX      = event.pageX;
+            world.mouseHandler.lastY      = event.pageY;
+            world.mouseHandler.buttonDown = true;
         },
 
         mouseUp: function () {
-            world.mouseHandler.mouseDown = false;
+            world.mouseHandler.buttonDown = false;
         },
 
         mouseMove: function (event) {
-            if (world.mouseHandler.mouseDown && (event.pageX < this.width) && (event.pageY < this.height)) {
+            if (world.mouseHandler.buttonDown && (event.pageX < this.width) && (event.pageY < this.height)) {
                 if ((event.pageX !== world.mouseHandler.lastX) || event.pageY !== world.mouseHandler.lastY) {
                     world.processClick(event.pageX, event.pageY);
                     world.mouseHandler.lastX = event.pageX;
