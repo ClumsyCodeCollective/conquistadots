@@ -25,11 +25,12 @@ function updatePlayerStatus() {
 
     $('#me .name').html(ownName);
     $('#me .status').html(ownStatus);
-
+    var opponentNumber = 0;
     rtcUsers.forEach(function(rtcUser) {
         var idx = rtcUsers.indexOf(rtcUser);
-        $('#opponent-' + idx + ' .name').html(rtcUser.username);
-        $('#opponent-' + idx + ' .status').html(rtcUser.status);
+        $('#opponent-' + opponentNumber + ' .name').html(rtcUser.username);
+        $('#opponent-' + opponentNumber + ' .status').html(rtcUser.status);
+        opponentNumber++;
     });
     $('#playerStatus').html(playerStatus);
 }
@@ -101,7 +102,7 @@ $(document).ready(function() {
         });
 
         gameSession.on('channel:opened:chat', function (id, dc) {
-            if (channels.length + 1 >= maxConnections) {
+            if (channels.length + 1 > maxConnections) {
                 sendToChannel(dc, {'error':'realm is full'});
                 return;
             }
