@@ -18,10 +18,14 @@ var gameOfLife = {
 			}
 		}
 	},
-	
+
 	init: function() {
 		for (x = 0; x < this.width; x++) {
+            this.state[x] = [];
+            this.newState[x] = [];
+
 			for (y = 0; y < this.height; y++) {
+                this.state[x][y] = this.deadCellPlaceholder;
 				this.newState[x][y] = this.deadCellPlaceholder;
 			}
 		}
@@ -89,8 +93,8 @@ var gameOfLife = {
 	},
 
 	iterate: function() {
-		for (x = 0; x < this.width; x++) {
-			for (y = 0; y < this.height; y++) {
+		for (var x = 0; x < this.width; x++) {
+			for (var y = 0; y < this.height; y++) {
 					this.iterateCell(x, y);
 			}
 		}
@@ -103,7 +107,8 @@ var gameOfLife = {
 	}
 }
 
-window.addEventListener('load', function() {
-	gameOfLife.init();
-	gameOfLife.run();
+$(document).ready(function () {
+    world.init(1, 800, 600, 1);
+    gameOfLife.init();
+    gameOfLife.run();
 });

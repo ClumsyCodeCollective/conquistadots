@@ -3,13 +3,13 @@ function Player(color, trailColor, initialState, x, y) {
 	this.trailColor = trailColor;
 	this.initialState = initialState;
 	this.x = x;
-	this.y = z;
+	this.y = y;
 }
 
 var players = [
 	new Player(
-		'ff0000',
-		'ff9999',
+		'#ff0000',
+		'#ff9999',
 		[[0, 0, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0],
 		 [0, 0, 1, 1, 0, 0],
@@ -20,8 +20,8 @@ var players = [
 		147
 	),
 	new Player(
-		'00ff00',
-		'99ff99',
+		'#00ff00',
+		'#99ff99',
 		[[0, 0, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0],
 		 [0, 0, 1, 1, 0, 0],
@@ -32,8 +32,8 @@ var players = [
 		147
 	),
 	new Player(
-		'0000ff',
-		'9999ff',
+		'#0000ff',
+		'#9999ff',
 		[[0, 0, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0],
 		 [0, 0, 1, 1, 0, 0],
@@ -44,8 +44,8 @@ var players = [
 		447
 	),
 	new Player(
-		'E8E835',
-		'FFFF5B',
+		'#E8E835',
+		'#FFFF5B',
 		[[0, 0, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0],
 		 [0, 0, 1, 1, 0, 0],
@@ -56,5 +56,3 @@ var players = [
 		447
 	),
 ];
-
-
