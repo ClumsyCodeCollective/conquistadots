@@ -12,20 +12,20 @@ var gameOfLife = {
 	},
 
 	placePlayer: function(i, player) {
-		for(y = 0; y < player.initialState.length; y++) {
-			for (x = 0; x < player.initialState[y].length; x++) {
+		for(var y = 0; y < player.initialState.length; y++) {
+			for (var x = 0; x < player.initialState[y].length; x++) {
 				this.newState[player.x + x][player.y + y] = player.initialState[x][y] ? i : this.deadCellPlaceholder;
 			}
 		}
 	},
 
 	init: function() {
-		for (x = 0; x < this.width; x++) {
-            this.state[x] = [];
-            this.newState[x] = [];
+		for (var x = 0; x < this.width; x++) {
+			this.state[x] = [];
+			this.newState[x] = [];
 
-			for (y = 0; y < this.height; y++) {
-                this.state[x][y] = this.deadCellPlaceholder;
+			for (var y = 0; y < this.height; y++) {
+				this.state[x][y] = this.deadCellPlaceholder;
 				this.newState[x][y] = this.deadCellPlaceholder;
 			}
 		}
@@ -39,49 +39,63 @@ var gameOfLife = {
 
 	getNeighbours: function(x, y) {
 		var neighbours = [];
+		var value;
 
-		for (i in players) {
+		for (var i in players) {
 			neighbours[i] = 0;
 		}
 
-		value = this.state[x-1][y-1];
-		if (value != this.deadCellPlaceholder) {
-			neighbours[value]++;
+		if (x > 0 && y > 0) {
+			value = this.state[x - 1][y - 1];
+			if (value != this.deadCellPlaceholder) {
+				neighbours[value]++;
+			}
 		}
 
-		value = this.state[x][y-1];
-		if (value != this.deadCellPlaceholder) {
-			neighbours[value]++;
+		if (y > 0) {
+			value = this.state[x][y - 1];
+			if (value != this.deadCellPlaceholder) {
+				neighbours[value]++;
+			}
 		}
 
-		value = this.state[x+1][y-1];
-		if (value != this.deadCellPlaceholder) {
-			neighbours[value]++;
+		if (x < this.width - 2 && y > 0) {
+			value = this.state[x+1][y-1];
+			if (value != this.deadCellPlaceholder) {
+				neighbours[value]++;
+			}
 		}
 
-		value = this.state[x-1][y];
-		if (value != this.deadCellPlaceholder) {
-			neighbours[value]++;
+		if (x > 0) {
+			value = this.state[x-1][y];
+			if (value != this.deadCellPlaceholder) {
+				neighbours[value]++;
+			}
 		}
 
-		value = this.state[x+1][y];
-		if (value != this.deadCellPlaceholder) {
-			neighbours[value]++;
+		if (x < this.width - 2) {
+			value = this.state[x+1][y];
+			if (value != this.deadCellPlaceholder) {
+				neighbours[value]++;
+			}
 		}
-
-		value = this.state[x-1][y+1];
-		if (value != this.deadCellPlaceholder) {
-			neighbours[value]++;
+		if (x > 0 && y < this.height - 2) {
+			value = this.state[x-1][y+1];
+			if (value != this.deadCellPlaceholder) {
+				neighbours[value]++;
+			}
 		}
-
-		value = this.state[x][y+1];
-		if (value != this.deadCellPlaceholder) {
-			neighbours[value]++;
+		if (y < this.height - 2) {
+			value = this.state[x][y+1];
+			if (value != this.deadCellPlaceholder) {
+				neighbours[value]++;
+			}
 		}
-
-		value = this.state[x+1][y+1];
-		if (value != this.deadCellPlaceholder) {
-			neighbours[value]++;
+		if (x < this.width - 2 && y - this.height - 2) {
+			value = this.state[x + 1][y + 1];
+			if (value != this.deadCellPlaceholder) {
+				neighbours[value]++;
+			}
 		}
 
 		return neighbours;
@@ -101,14 +115,10 @@ var gameOfLife = {
 
 		this.draw();
 	},
-
-	run: function() {
-		this.running = setInterval(this.iterate, 1000);
-	}
 }
 
 $(document).ready(function () {
-    world.init(1, 800, 600, 1);
-    gameOfLife.init();
-    gameOfLife.run();
+	world.init(1, 800, 600, 1);
+	gameOfLife.init();
+	var x = setInterval(gameOfLife.iterate(), 1000);
 });
