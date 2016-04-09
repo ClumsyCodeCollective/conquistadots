@@ -15,10 +15,6 @@
 </head>
 	
 <body>
-<!--<div id="wrapper">-->
-	<!--<canvas id="canvas" width="1200" height="900"></canvas>-->
-<!--</div>-->
-<button id="go">go</button>
 <div id="gameStart">
 	<div class=".col-md-4 toggler" id="opponent-0" style="display:none">
 		Oponent #1 <br/>
@@ -34,12 +30,12 @@
 			<input class="btn btn-default" type="button" id="connect" value="Connect">
 		</div>
 		<div class="toggler" style="display:none" id="me">
-            Name: <span class="name"></span>
-            Status: <span class="status"></span>
+			Name: <span class="name"></span>
+			Status: <span class="status"></span>
 			<span class="error"></span>
 			<span id="playerStatus"></span>
 			<div id="wrapper">
-				<canvas id="canvas" width="200" height="200"></canvas>
+				<canvas id="initCanvas" width="200" height="200"></canvas>
 			</div>
 			<script type="text/javascript">
 				$(document).ready(function () {
@@ -53,8 +49,29 @@
 	<div class=".col-md-4 toggler" id="opponent-1" style="display:none">
 		Oponent #2 <br/>
 		<span class="name"></span>
-		<span class="status"></span>	</div>
+		<span class="status"></span>
+	</div>
 </div>
+<div id="game">
+	<canvas id="gameCanvas" width="960" height="480"></canvas>
+	<div id="game-info">
+		<table>
+			<tr id="p1">
+				<td class="name"></td>
+				<td class="result"></td>
+			</tr>
+			<tr id="p2">
+				<td class="name"></td>
+				<td class="result"></td>
+			</tr>
+			<tr id="p3">
+				<td class="name"></td>
+				<td class="result"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<button id="go">go</button>
 
 </body>
 </html>

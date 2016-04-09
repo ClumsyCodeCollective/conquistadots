@@ -1,4 +1,5 @@
-function Player(color, trailColor, initialState, x, y, reproductionMod, survivalMod, defenseMod, attackMod) {
+function Player(name, color, trailColor, initialState, x, y, reproductionMod, survivalMod, defenseMod, attackMod) {
+	this.name = name
 	this.color = color;
 	this.trailColor = trailColor;
 	this.initialState = initialState;
@@ -12,6 +13,7 @@ function Player(color, trailColor, initialState, x, y, reproductionMod, survival
 
 var players = [
 	new Player(
+		'pista1',
 		'#ff0000',
 		'#ff9999',
 		[[0, 0, 0, 0, 0, 0, 0, 0],
@@ -30,6 +32,7 @@ var players = [
 		1
 	),
 	new Player(
+		'pista2',
 		'#00ff00',
 		'#99ff99',
 		[[0, 0, 0, 0, 0, 0, 0, 0],
@@ -48,6 +51,7 @@ var players = [
 		1
 	),
 	new Player(
+		'pista3',
 		'#0000ff',
 		'#9999ff',
 		[[0, 0, 0, 0, 0, 0, 0, 0],

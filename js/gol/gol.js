@@ -6,14 +6,25 @@ var gameOfLife = {
 	height: 120,
 	running: null,
 	playerCount: null,
+	result: [],
 
 	draw: function() {
+		for(var i = 0; i < this.playerCount; i++) {
+			this.result[i] = 0;
+		}
+
 		world.setState(this.newState);
+
 		for (var x = 0; x < this.width; x++) {
 			for (var y = 0; y < this.height; y++) {
 				this.state[x][y] = this.newState[x][y];
+				if (this.newState[x][y] != this.deadCellPlaceholder) {
+					this.result[this.newState[x][y]]++;
+				}
 			}
 		}
+
+		this.updateResult();
 	},
 
 	placePlayer: function(i, player) {
@@ -42,7 +53,19 @@ var gameOfLife = {
 			this.placePlayer(i, players[i]);
 		}
 
+		for(var i = 0; i < this.playerCount; i++) {
+			$("#p" + i + " .name").innerHTML = players[i].name;
+			$("#p" + i + " .name").css("color", "#" + players[i].trailColor);
+			$("#p" + i + " .result").css("color", "#" + players[i].color);
+		}
+
 		this.draw();
+	},
+
+	updateResult: function() {
+		for(var i = 0; i < this.playerCount; i++) {
+			$("#p" + i + " .result").innerHTML = this.result[i];
+		}
 	},
 
 	getNeighbours: function(x, y) {
