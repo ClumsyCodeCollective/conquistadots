@@ -1,19 +1,19 @@
-var gameOfLife = {
-	deadCellPlaceholder: '*',
-	state: [],
-	newState: [],
-	width: 240,
-	height: 120,
-	running: null,
-	playerCount: null,
-	result: [],
+function GameOfLife(canvasId) {
+	this.deadCellPlaceholder = '*';
+	this.state = [];
+	this.newState = [];
+	this.width = 240;
+	this.height = 120;
+	this.playerCount = null;
+	this.result = [];
+	this.world = new World(canvasId, this.width, this.height, 4);
 
-	draw: function() {
-		for(var i = 0; i < this.playerCount; i++) {
+	this.draw = function () {
+		for (var i = 0; i < this.playerCount; i++) {
 			this.result[i] = 0;
 		}
 
-		world.setState(this.newState);
+		this.world.setState(this.newState);
 
 		for (var x = 0; x < this.width; x++) {
 			for (var y = 0; y < this.height; y++) {
@@ -25,17 +25,17 @@ var gameOfLife = {
 		}
 
 		this.updateResult();
-	},
+	};
 
-	placePlayer: function(i, player) {
-		for(var row = 0; row < player.initialState.length; row++) {
+	this.placePlayer = function (i, player) {
+		for (var row = 0; row < player.initialState.length; row++) {
 			for (var col = 0; col < player.initialState[row].length; col++) {
 				this.newState[player.x + col][player.y + row] = player.initialState[row][col] ? i : this.deadCellPlaceholder;
 			}
 		}
-	},
+	};
 
-	init: function() {
+	this.init = function () {
 		cellLogic.init();
 		this.playerCount = players.length;
 
@@ -49,30 +49,30 @@ var gameOfLife = {
 			}
 		}
 
-		for(var i = 0; i < this.playerCount; i++) {
+		for (var i = 0; i < this.playerCount; i++) {
 			this.placePlayer(i, players[i]);
 		}
 
-		for(var i = 0; i < this.playerCount; i++) {
+		for (var i = 0; i < this.playerCount; i++) {
 			$("#p" + i + " .name").innerHTML = players[i].name;
 			$("#p" + i + " .name").css("color", "#" + players[i].trailColor);
 			$("#p" + i + " .result").css("color", "#" + players[i].color);
 		}
 
 		this.draw();
-	},
+	};
 
-	updateResult: function() {
-		for(var i = 0; i < this.playerCount; i++) {
+	this.updateResult = function () {
+		for (var i = 0; i < this.playerCount; i++) {
 			$("#p" + i + " .result").innerHTML = this.result[i];
 		}
-	},
+	};
 
-	getNeighbours: function(x, y) {
+	this.getNeighbours = function (x, y) {
 		var neighbours = [];
 		var value;
 
-		for(var i = 0; i < this.playerCount; i++) {
+		for (var i = 0; i < this.playerCount; i++) {
 			neighbours[i] = 0;
 		}
 
@@ -133,14 +133,14 @@ var gameOfLife = {
 		}
 
 		return neighbours;
-	},
+	};
 
-	iterateCell: function(x, y) {
+	this.iterateCell = function (x, y) {
 		var neighbours = this.getNeighbours(x, y);
 		this.newState[x][y] = cellLogic.getNewValue(this.state[x][y], neighbours);
-	},
+	};
 
-	iterate: function() {
+	this.iterate = function () {
 		for (var x = 0; x < this.width; x++) {
 			for (var y = 0; y < this.height; y++) {
 				this.iterateCell(x, y);
@@ -148,15 +148,19 @@ var gameOfLife = {
 		}
 
 		this.draw();
-	},
+	};
+
+	this.init();
 }
 
 $(document).ready(function () {
-	world.init(gameOfLife.width, gameOfLife.height, 4);
-	gameOfLife.init();
+	var game = new GameOfLife("gameCanvas");
+
 	$("#go").on("click", "",
 		function () {
-			setInterval(function(){gameOfLife.iterate()},10)
+			setInterval(function () {
+				game.iterate()
+			}, 10)
 		}
 	);
 });

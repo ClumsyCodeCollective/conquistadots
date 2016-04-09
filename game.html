@@ -39,8 +39,8 @@
 			</div>
 			<script type="text/javascript">
 				$(document).ready(function () {
-					world.init(8, 8, 25);
-					world.enablePlacementForPlayer(1);
+					var configWorld = new World("initCanvas", 8, 8, 25);
+					configWorld.enablePlacementForPlayer(1);
 				});
 			</script>
 			<input class="btn btn-default" type="button" id="ready" value="Fight">
