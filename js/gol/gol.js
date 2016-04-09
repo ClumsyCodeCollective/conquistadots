@@ -157,13 +157,13 @@ function GameOfLife(canvasId) {
 }
 
 $(document).ready(function () {
-	var game = new GameOfLife("gameCanvas");
-
-	$("#go").on("click", "",
-		function () {
-			setInterval(function () {
-				game.iterate()
-			}, 10)
-		}
-	);
+	// var game = new GameOfLife("gameCanvas");
+	//
+	// $("#go").on("click", "",
+	// 	function () {
+	// 		setInterval(function () {
+	// 			game.iterate()
+	// 		}, 10)
+	// 	}
+	// );
 });

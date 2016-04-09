@@ -5,11 +5,26 @@ var dynamicNames=true;
 
 var maxConnections = 2;
 
-var ownName;
+var ownUsername;
 var ownStatus = 'pending';
+var ownSettings;
 
 var rtcUsers = [];
 var statusRefreshInterval;
+var configWorld;
+var game;
+
+var playerColors = [
+    ['#ff0000', '#ff9999'],
+    ['#00ff00', '#99ff99',],
+    ['#0000ff', '#9999ff',]
+];
+
+var playerPositions = [
+    [56, 26],
+    [176, 26],
+    [116, 86],
+];
 
 var firstNames = ['Eric', 'John', 'Kenny', 'Michael', 'Dan', 'George', 'Thomas'];
 var lastNames = ['Johnson', 'Loggins', 'Jackson', 'Carpenter', 'Smith', 'Whatever'];
@@ -23,7 +38,7 @@ function getRandomName() {
 function updatePlayerStatus() {
     $('#playerCount').html((channels.length + 1) + ' players');
 
-    $('#me .name').html(ownName);
+    $('#me .name').html(ownUsername);
     $('#me .status').html(ownStatus);
     var opponentNumber = 0;
     rtcUsers.forEach(function(rtcUser) {
@@ -52,23 +67,96 @@ function sendToAllChannel(payload) {
     });
 }
 
+function getGameSettings() {
+    if (ownStatus != 'ready') {
+        return {};
+    }
+    if (ownSettings === undefined) {
+        var reproduction = $('#reproduction').attr('checked') == 'checked' ? 1 : 0;
+        var survival = $('#survival').attr('checked') == 'checked' ? 1 : 0;
+        var defense = $('#defense').attr('checked') == 'checked' ? 1 : 0;
+        var attack = $('#attack').attr('checked') == 'checked' ? 1 : 0;
+
+        ownSettings = {
+            'name' : ownUsername,
+            'initialState' : {},
+            'reproductionMod' : reproduction,
+            'survivalMod' : survival,
+            'defenseMod' : defense,
+            'attackMod' : attack,
+        };
+    }
+    return ownSettings;
+}
+
 $(document).ready(function() {
+    configWorld = new World("initCanvas", 8, 8, 25);
+    configWorld.enablePlacementForPlayer(-1);
+
+    game = new GameOfLife("gameCanvas");
+
+
     statusRefreshInterval = setInterval(function() {
         sendToAllChannel({'action':'get_status'});
         var isEveryoneReady = true;
-        if (rtcUsers.length < 3) {
+        if (rtcUsers.length < 2) {
+            isEveryoneReady = false;
+        }
+        if (ownStatus != 'ready') {
             isEveryoneReady = false;
         }
         rtcUsers.forEach(function(rtcUser) {
+            console.log(rtcUser.status);
             if (rtcUser.status != 'ready') {
-                console.log(rtcUser.status);
+
                 isEveryoneReady = false;
             }
         });
-        if (isEveryoneReady) {
-            alert('reeeady');
-        }
         updatePlayerStatus();
+        if (isEveryoneReady) {
+            clearInterval(statusRefreshInterval);
+            var users = [];
+            rtcUsers.forEach(function(rtcUser) {
+                users.push({'username': rtcUser.username, 'index': rtcUsers.indexOf(rtcUser)});
+            });
+
+            users.push({'username': ownUsername, 'index': -1});
+            users.sort(function(a,b) {return (a.username > b.username) ? 1 : ((b.username > a.username) ? -1 : 0)});
+
+            for (var i in users) {
+                if (users[i].index >= 0) {
+                    var player = new Player(
+                        users[i].username,
+                        playerColors[i][0],
+                        playerColors[i][1],
+                        rtcUsers[users[i].index].settings.initialState,
+                        playerPositions[i][0],
+                        playerPositions[i][1],
+                        rtcUsers[users[i].index].settings.reproductionMod,
+                        rtcUsers[users[i].index].settings.survivalMod,
+                        rtcUsers[users[i].index].settings.defenseMod,
+                        rtcUsers[users[i].index].settings.attackMod
+                    );
+                }
+                else {
+                    var player = new Player(
+                        ownUsername,
+                        playerColors[i][0],
+                        playerColors[i][1],
+                        configWorld.grid,
+                        playerPositions[i][0],
+                        playerPositions[i][1],
+                        getGameSettings().reproductionMod,
+                        getGameSettings().survivalMod,
+                        getGameSettings().defenseMod,
+                        getGameSettings().attackMod
+                    );
+                }
+                players.push(player);
+            }
+            setInterval(function(){game.iterate()},10)
+        }
+
     }, 1000);
     $('#ready').on('click', function() {
         ownStatus = 'ready';
@@ -78,7 +166,7 @@ $(document).ready(function() {
         $('#username').attr('value', getRandomName());
     }
 
-    ownName = $('#username').attr('value');
+    ownUsername = $('#username').attr('value');
     ownStatus = 'connected';
     $('#connect').on('click', function () {
         $('.toggler').toggle();
@@ -114,7 +202,7 @@ $(document).ready(function() {
             dc.onmessage = function (evt) {
                 message = JSON.parse(evt.data);
                 if (message.action == 'get_username') {
-                    sendToChannel(dc, {'action':'username_reply', 'username':ownName});
+                    sendToChannel(dc, {'action':'username_reply', 'username':ownUsername});
                 }
                 else if (message.action == 'username_reply') {
                     if (rtcUsers[id] != undefined) {
@@ -122,11 +210,12 @@ $(document).ready(function() {
                     }
                 }
                 else if (message.action == 'get_status') {
-                    sendToChannel(dc, {'action':'status_reply', 'status': ownStatus})
+                    sendToChannel(dc, {'action':'status_reply', 'status': ownStatus, 'settings': getGameSettings()})
                 }
                 else if (message.action == 'status_reply') {
                     if (rtcUsers[id] != undefined) {
                         rtcUsers[id].status = message.status;
+                        rtcUsers[id].settings = message.settings;
                     }
                 }
                 else {
