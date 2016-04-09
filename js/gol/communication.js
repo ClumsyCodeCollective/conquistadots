@@ -1,5 +1,5 @@
 var channels = [];
-var realmName = '';
+var realmName = 'GameOfCode';
 var gameSession;
 var dynamicNames=true;
 

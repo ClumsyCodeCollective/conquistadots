@@ -129,7 +129,7 @@ var gameOfLife = {
 }
 
 $(document).ready(function () {
-	world.init(1, gameOfLife.width, gameOfLife.height, 4);
+	world.init(gameOfLife.width, gameOfLife.height, 4);
 	gameOfLife.init();
 	$("#go").on("click", "",
 		function () {
