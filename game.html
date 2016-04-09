@@ -35,6 +35,15 @@
         <div class="toggler" style="display:none">
             Status: <span id="playerCount"></span>
             <span id="playerStatus"></span>
+            <div id="wrapper">
+                <canvas id="canvas" width="200" height="200"></canvas>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    world.init(8, 8, 25);
+                    world.enablePlacementForPlayer(1);
+                });
+            </script>
             <input class="btn btn-default" type="button" id="ready" value="Fight">
         </div>
     </div>
