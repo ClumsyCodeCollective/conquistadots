@@ -7,13 +7,28 @@
     <script src="js/gol/world.js"></script>
     <script src="js/gol/cellLogic.js"></script>
     <script src="js/gol/gol.js"></script>
-
+    <script src="js/bower_components/rtc/dist/rtc.min.js"></script>
+    <script src="js/gol/rtc.js"></script>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
 </head>
 <body>
 <div id="wrapper">
     <canvas id="canvas" width="1200" height="900"></canvas>
+</div>
+<button id="go">gomodafoka</button>
+<div id="gameStart">
+    <span id="login" class="toggler">
+        <label for="realmName">Realm name</label>
+        <input type="text" id="realmName" placeholder="Real name" value="GameOfCode"/>
+        <label for="username">Your name</label>
+        <input type="text" id="username" placeholder="Username"/>
+        <input class="btn btn-default" type="button" id="connect" value="Connect">
+    </span>
+    <span id="setup" class="toggler" style="display:none">
+        Status: <span id="playerCount"></span>
+    </span>
+</div>
+
 </body>
 </html>

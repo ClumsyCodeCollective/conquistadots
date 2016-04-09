@@ -1,11 +1,22 @@
 var channels = [];
 var messages = document.getElementById('messages');
-var roomName;
+var realmName;
 var gameSession;
+var dynamicNames=true;
+
+function getName() {
+    var firstNames = ['Eric', 'John', 'Kenny', 'Michael'];
+    var lastNames = ['Johnson', 'Loggins', 'Jackson', 'Carpenter'];
+    return  firstNames[Math.floor(Math.random()*firstNames.length)]
+        + lastNames[Math.floor(Math.random()*lastNames.length)];
+}
 
 $(document).ready(function() {
+    $('#username').attr('value', getName());
     $('#connect').on('click', function () {
-        roomName = $('#room_name').val();
+        $('.toggler').toggle();
+        $('#playerCount').html('Waiting for players');
+        realmName = $('#realmName').val();
         gameSession = RTC({
             constraints: null,
             channels: {
@@ -20,7 +31,7 @@ $(document).ready(function() {
                     username: 'conquistadots'
                 },
             ],
-            room: 'goc_clumsy_' + roomName
+            room: 'goc_clumsy_' + realmName
         });
 
         gameSession.on('channel:opened:chat', function (id, dc) {
@@ -31,6 +42,7 @@ $(document).ready(function() {
 
             console.log('add');
             channels.push(dc);
+            $('#playerCount').html((channels.length + 1) + ' players');
         });
 
         gameSession.on('channel:closed:chat', function (id, dc) {
@@ -40,14 +52,15 @@ $(document).ready(function() {
             if (idx >= 0) {
                 channels.splice(idx, 1);
             }
+            $('#playerCount').html((channels.length + 1) + ' players');
         });
     });
 });
 
 // Send message to every registered channel
-messages.onkeyup = function(evt) {
-    channels.forEach(function(channel) {
-        console.log('send to peer ' + evt.target.value);
-        channel.send(evt.target.value);
-    });
-};
+// messages.onkeyup = function(evt) {
+//     channels.forEach(function(channel) {
+//         console.log('send to peer ' + evt.target.value);
+//         channel.send(evt.target.value);
+//     });
+// };

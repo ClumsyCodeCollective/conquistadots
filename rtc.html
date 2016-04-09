@@ -5,8 +5,10 @@
     <title>rtc test</title>
 </head>
 <body>
-    <input type="text" id="room_name" value="Room name"/>
-    <input type="text" id="username" value="Username"/>
+    <label for="roomName">Realm name</label>
+    <input type="text" id="roomName" placeholder="Room name"/>
+    <label for="username">Your name</label>
+    <input type="text" id="username" placeholder="Username"/>
     <input type="button" id="connect" value="Connect"/>
     <textarea id="messages"></textarea>
     <script src="js/bower_components/rtc/dist/rtc.min.js"></script>

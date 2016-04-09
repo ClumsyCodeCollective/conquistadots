@@ -130,5 +130,9 @@ var gameOfLife = {
 $(document).ready(function () {
 	world.init(1, gameOfLife.width, gameOfLife.height, 4);
 	gameOfLife.init();
-	setInterval(function(){gameOfLife.iterate()},1);
+	$("#go").on("click", "",
+		function () {
+			setInterval(function(){gameOfLife.iterate()},1000)
+		}
+	);
 });
