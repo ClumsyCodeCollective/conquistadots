@@ -33,7 +33,7 @@ function GameOfLife(canvasId) {
 	this.placePlayer = function (i, player) {
 		for (var row = 0; row < player.initialState.length; row++) {
 			for (var col = 0; col < player.initialState[row].length; col++) {
-				this.newState[player.x + col][player.y + row] = player.initialState[row][col] ? i : this.deadCellPlaceholder;
+				this.newState[player.x + col][player.y + row] = player.initialState[row][col] != '*' ? i : this.deadCellPlaceholder;
 			}
 		}
 	};
