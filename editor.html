@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="js/bower_components/jquery/dist/jquery.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/gol/maps/valleys.js"></script>
+	<script src="js/gol/players.js"></script>
+	<script src="js/gol/world.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/conquistadots.css">
+
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+	<div id="header">
+		<h1>Conquistadots - editor</h1>
+	</div>
+
+	<div id="game" style="padding-left: 10px;">
+		<canvas id="gameCanvas" width="960" height="480"></canvas>
+	</div>
+	<button onclick="dumpData(world.grid)">Dump map data</button>
+
+	<div id="footer">© 2016 - Clumsy Code Collective</div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			world = new World("gameCanvas", 240, 120, 4, 0);
+			world.enablePlacementForPlayer();
+		});
+
+		function dumpData(grid) {
+			var data = grid.slice();
+			for (var i in grid) {
+				for (var j in grid[i]) {
+					data[i][j] = (grid[i][j]=="*" ? "*" : "x");
+				}
+			}
+			console.log(JSON.stringify(data));
+		}
+	</script>
+</body>
+</html>
