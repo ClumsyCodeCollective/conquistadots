@@ -8,6 +8,7 @@ function World(canvasId, cols, rows, cellSize) {
 	this.context = this.canvas.getContext('2d');
 	this.player = null;
 	this.neutralState = '*';
+	this.forbiddenState = 'x';
 	this.grid = [];
 
 	this.enablePlacementForPlayer = function (player) {
@@ -39,7 +40,10 @@ function World(canvasId, cols, rows, cellSize) {
 	};
 
 	this.drawCell = function (i, j, state, leaveTrail) {
-		if (state == this.neutralState) {
+		if (state == this.forbiddenState) {
+			this.context.fillStyle = "#333333";
+		}
+		else if (state == this.neutralState) {
 			if (leaveTrail && (i in this.grid) && (j in this.grid[i])) {
 				this.context.fillStyle = players[this.grid[i][j]].trailColor;
 			}
