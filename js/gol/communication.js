@@ -79,7 +79,7 @@ function getGameSettings() {
 
         ownSettings = {
             'name' : ownUsername,
-            'initialState' : {},
+            'initialState' : configWorld.grid,
             'reproductionMod' : reproduction,
             'survivalMod' : survival,
             'defenseMod' : defense,
@@ -125,11 +125,12 @@ $(document).ready(function() {
 
             for (var i in users) {
                 if (users[i].index >= 0) {
+                    console.log(rtcUsers[users[i].index].settings.initialState);
                     var player = new Player(
                         users[i].username,
                         playerColors[i][0],
                         playerColors[i][1],
-                        rtcUsers[users[i].index].settings.initialState,
+                        jQuery.makeArray(rtcUsers[users[i].index].settings.initialState),
                         playerPositions[i][0],
                         playerPositions[i][1],
                         rtcUsers[users[i].index].settings.reproductionMod,
