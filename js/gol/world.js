@@ -120,11 +120,13 @@ function World(canvasId, cols, rows, cellSize) {
 		},
 
 		getEventCol: function (event) {
-			return Math.floor(event.pageX / worldInstance.cellSize);
+			var elementPos = $(event.target).offset();
+			return Math.floor((event.pageX - elementPos.left) / worldInstance.cellSize);
 		},
 
 		getEventRow: function (event) {
-			return Math.floor(event.pageY / worldInstance.cellSize) - 2;
+			var elementPos = $(event.target).offset();
+			return Math.floor((event.pageY - elementPos.top) / worldInstance.cellSize);
 		}
 	}
 
