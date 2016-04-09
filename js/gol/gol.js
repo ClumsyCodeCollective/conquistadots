@@ -1,4 +1,6 @@
 function GameOfLife(canvasId) {
+	var gameInstance = this;
+
 	this.deadCellPlaceholder = '*';
 	this.state = [];
 	this.newState = [];
@@ -7,6 +9,7 @@ function GameOfLife(canvasId) {
 	this.playerCount = null;
 	this.result = [];
 	this.world = new World(canvasId, this.width, this.height, 4);
+	this.cellLogic = null;
 
 	this.draw = function () {
 		for (var i = 0; i < this.playerCount; i++) {
@@ -36,8 +39,8 @@ function GameOfLife(canvasId) {
 	};
 
 	this.init = function () {
-		cellLogic.init();
 		this.playerCount = players.length;
+		this.cellLogic = new CellLogic(this.deadCellPlaceholder, this.playerCount);
 
 		for (var x = 0; x < this.width; x++) {
 			this.state[x] = [];
@@ -137,7 +140,7 @@ function GameOfLife(canvasId) {
 
 	this.iterateCell = function (x, y) {
 		var neighbours = this.getNeighbours(x, y);
-		this.newState[x][y] = cellLogic.getNewValue(this.state[x][y], neighbours);
+		this.newState[x][y] = gameInstance.cellLogic.getNewValue(this.state[x][y], neighbours);
 	};
 
 	this.iterate = function () {

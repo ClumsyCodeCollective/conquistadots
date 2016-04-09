@@ -1,17 +1,16 @@
-var cellLogic = {
+function CellLogic(deadCellPlaceholder, playerCount) {
+	this.deadCellPlaceholder = deadCellPlaceholder;
+	this.playerCount = playerCount;
+	this.getRandom = getRandomGenerator();
 
-	init: function() {
-		this.getRandom = getRandomGenerator();
-	},
-	
-	getNewValueForDeadCell: function(neighbours) {
+	this.getNewValueForDeadCell = function(neighbours) {
 		var neighbour = null;
 		var neighbourCount = 0;
 
-		for (var i = 0; i < gameOfLife.playerCount; i++) {
+		for (var i = 0; i < this.playerCount; i++) {
 			if (neighbours[i] != 0) {
 				if (neighbourCount != 0) {
-					return gameOfLife.deadCellPlaceholder
+					return this.deadCellPlaceholder
 				}
 				else {
 					neighbour = i;
@@ -26,20 +25,20 @@ var cellLogic = {
 		else if (neighbourCount == 2) {
 			var chance = 5 + players[neighbour].reproductionMod * 2;
 			var random = this.getRandom(100);
-			return chance > random ? neighbour : gameOfLife.deadCellPlaceholder
+			return chance > random ? neighbour : this.deadCellPlaceholder
 		}
 		else {
-			return gameOfLife.deadCellPlaceholder
+			return this.deadCellPlaceholder
 		}
-	},
+	};
 
-	getNewValueForLiveCell: function(playerIndex, neighbours) {
+	this.getNewValueForLiveCell = function(playerIndex, neighbours) {
 		var supporters = neighbours[playerIndex];
 		var attackers = 0;
 		var chance = 0;
 		var random = 0;
 
-		for (var i = 0; i < gameOfLife.playerCount; i++) {
+		for (var i = 0; i < this.playerCount; i++) {
 			if (i != playerIndex) {
 				attackers = attackers + (neighbours[i] ? neighbours[i] + players[i].attackMod : 0);
 			}
@@ -50,7 +49,7 @@ var cellLogic = {
 			chance = Math.ceil((defenders / (defenders + attackers)) * 100);
 			random = this.getRandom(100);
 
-			return chance > random ? playerIndex : gameOfLife.deadCellPlaceholder;
+			return chance > random ? playerIndex : this.deadCellPlaceholder;
 
 		}
 
@@ -61,18 +60,18 @@ var cellLogic = {
 		if (supporters == 1 || 4) {
 			chance = 5 + players[playerIndex].survivalMod * 2;
 			random = this.getRandom(100);
-			return chance > random ? playerIndex : gameOfLife.deadCellPlaceholder;
+			return chance > random ? playerIndex : this.deadCellPlaceholder;
 		}
 
-		return gameOfLife.deadCellPlaceholder;
-	},
+		return this.deadCellPlaceholder;
+	};
 
-	getNewValue: function(value, neighbours) {
-		if (value == gameOfLife.deadCellPlaceholder) {
+	this.getNewValue = function (value, neighbours) {
+		if (value == this.deadCellPlaceholder) {
 			return this.getNewValueForDeadCell(neighbours);
 		}
 		else {
 			return this.getNewValueForLiveCell(value, neighbours)
 		}
-	}
+	};
 }

@@ -19,7 +19,7 @@ function getRandomGenerator(){
 
 	initParamA=initParamA%(mod1-1)+1;
 	initParamB=initParamB%(mod2-1)+1;
-console.log(initParamA);
+
 	function random(limit){
 		initParamA=(initParamA*mul1)%mod1;
 		initParamB=(initParamB*mul2)%mod2;
@@ -28,7 +28,6 @@ console.log(initParamA);
 		}
 		return (initParamA+initParamB)%limit;
 	}
-
 
 	return random;
 }
