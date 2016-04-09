@@ -40,12 +40,15 @@ function updatePlayerStatus() {
 
     $('#me .name').html(ownUsername);
     $('#me .status').html(ownStatus);
-    var opponentNumber = 0;
+
+    for (var i=0;i<maxConnections; i++) {
+        $('#opponent-' + i + ' .name').html('');
+        $('#opponent-' + i + ' .status').html('');
+    }
     rtcUsers.forEach(function(rtcUser) {
         var idx = rtcUsers.indexOf(rtcUser);
-        $('#opponent-' + opponentNumber + ' .name').html(rtcUser.username);
-        $('#opponent-' + opponentNumber + ' .status').html(rtcUser.status);
-        opponentNumber++;
+        $('#opponent-' + idx + ' .name').html(rtcUser.username);
+        $('#opponent-' + idx + ' .status').html(rtcUser.status);
     });
     $('#playerStatus').html(playerStatus);
 }
@@ -56,7 +59,6 @@ function sendToChannel(channel, payload) {
     }
     else {
         var channelIndex = channels.indexOf(channel);
-        console.log('Channel suddenly closed: ' + channelIndex);
         rtcUsers[channelIndex].status = 'disconnected';
     }
 }
@@ -125,7 +127,6 @@ $(document).ready(function() {
 
             for (var i in users) {
                 if (users[i].index >= 0) {
-
                     var player = new Player(
                         users[i].username,
                         playerColors[i][0],
@@ -155,6 +156,8 @@ $(document).ready(function() {
                 }
                 players.push(player);
             }
+            $("#gameStart").hide();
+            $("#game").show();
             game.init();
             setInterval(function(){game.iterate()},10)
         }
@@ -162,18 +165,24 @@ $(document).ready(function() {
     }, 1000);
     $('#ready').on('click', function() {
         ownStatus = 'ready';
+        $(this).attr('disabled', 'disabled');
     });
 
+    $('#reload').on('click', function() {location.reload();});
+
     if (dynamicNames) {
-        $('#username').attr('value', getRandomName());
+        $('#username').val(getRandomName());
     }
 
-    ownUsername = $('#username').attr('value');
     ownStatus = 'connected';
+    ownUsername = $('#username').val();
+
     $('#connect').on('click', function () {
         $('.toggler').toggle();
         $('#playerCount').html('Waiting for players');
         realmName = $('#realmName').val();
+        ownUsername = $('#username').val();
+
         gameSession = RTC({
             constraints: null,
             channels: {
@@ -221,8 +230,12 @@ $(document).ready(function() {
                     }
                 }
                 else {
-                    $('#me .error').html('ERROR:' + message.error);
+                    $('#me .error').html('Error: ' + message.error);
                     $('#me .status').html('disconnected');
+
+                    $('#ready').hide();
+                    $('#reload').show();
+
                     clearInterval(statusRefreshInterval);
                 }
             };
@@ -231,7 +244,6 @@ $(document).ready(function() {
         });
 
         gameSession.on('channel:closed:chat', function (id, dc) {
-            console.log('channel closed');
             var idx = channels.indexOf(dc);
             if (idx >= 0) {
                 channels.splice(idx, 1);
