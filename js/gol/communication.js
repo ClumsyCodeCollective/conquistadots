@@ -26,8 +26,10 @@ var playerPositions = [
     [116, 86],
 ];
 
-var firstNames = ['Eric', 'John', 'Kenny', 'Michael', 'Dan', 'George', 'Thomas'];
-var lastNames = ['Johnson', 'Loggins', 'Jackson', 'Carpenter', 'Smith', 'Whatever'];
+var firstNames = ['Eric', 'John', 'Kenny', 'Michael', 'Dan', 'George', 'Thomas',
+    'Sophia', 'Emma', 'Lily', 'Hannah', 'Tina'];
+var lastNames = ['Johnson', 'Loggins', 'Jackson', 'Carpenter', 'Smith', 'Jones', 'Williams', 'Taylor',
+    'Wright', 'Turner', 'Cooper'];
 
 function getRandomName() {
     var firstIndex = Math.floor(Math.random()*firstNames.length);
