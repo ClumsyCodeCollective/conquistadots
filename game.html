@@ -4,6 +4,7 @@
 	<script src="js/bower_components/jquery/dist/jquery.js"></script>
 	<script src="bootstrap/js/bootstrap.js"></script>
 	<script src="js/gol/players.js"></script>
+	<script src="js/gol/control.js"></script>
 	<script src="js/gol/world.js"></script>
 	<script src="js/gol/random.js"></script>
 	<script src="js/gol/cellLogic.js"></script>
@@ -52,7 +53,7 @@
 		<span class="status"></span>
 	</div>
 </div>
-<div id="game">
+<div id="game" style="display: none">
 	<canvas id="gameCanvas" width="960" height="480"></canvas>
 	<div id="game-info">
 		<table>
@@ -70,8 +71,8 @@
 			</tr>
 		</table>
 	</div>
+	<button id="go">go</button>
 </div>
-<button id="go">go</button>
 
 </body>
 </html>
