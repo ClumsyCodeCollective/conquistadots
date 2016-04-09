@@ -2,7 +2,7 @@ var cellLogic = {
 	getNewValueForDeadCell: function(neighbours) {
 		var reproductionValue = gameOfLife.deadCellPlaceholder;
 
-		for (var i in neighbours) {
+		for (var i = 0; i < gameOfLife.playerCount; i++) {
 			if (neighbours[i] == 3) {
 				if (reproductionValue == gameOfLife.deadCellPlaceholder) {
 					reproductionValue = i;
@@ -19,7 +19,7 @@ var cellLogic = {
 		var supporters = neighbours[value];
 		var attackers = 0;
 
-		for (var i in neighbours) {
+		for (var i = 0; i < gameOfLife.playerCount; i++) {
 			if (i != value) {
 				attackers = attackers + neighbours[i];
 			}

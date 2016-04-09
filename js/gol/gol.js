@@ -2,9 +2,10 @@ var gameOfLife = {
 	deadCellPlaceholder: '*',
 	state: [],
 	newState: [],
-	width: 300,
-	height: 200,
+	width: 240,
+	height: 120,
 	running: null,
+	playerCount: null,
 
 	draw: function() {
 		world.setState(this.newState);
@@ -24,6 +25,8 @@ var gameOfLife = {
 	},
 
 	init: function() {
+		this.playerCount = players.length;
+
 		for (var x = 0; x < this.width; x++) {
 			this.state[x] = [];
 			this.newState[x] = [];
@@ -34,7 +37,7 @@ var gameOfLife = {
 			}
 		}
 
-		for(var i in players) {
+		for(var i = 0; i < this.playerCount; i++) {
 			this.placePlayer(i, players[i]);
 		}
 
@@ -45,7 +48,7 @@ var gameOfLife = {
 		var neighbours = [];
 		var value;
 
-		for (var i in players) {
+		for(var i = 0; i < this.playerCount; i++) {
 			neighbours[i] = 0;
 		}
 
@@ -125,8 +128,7 @@ var gameOfLife = {
 }
 
 $(document).ready(function () {
-	world.init(1, 300, 200, 4);
+	world.init(1, gameOfLife.width, gameOfLife.height, 4);
 	gameOfLife.init();
-	setInterval(function(){gameOfLife.iterate()},1000);
-
+	setInterval(function(){gameOfLife.iterate()},1);
 });
