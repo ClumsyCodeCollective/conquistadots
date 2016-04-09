@@ -52,14 +52,14 @@ function GameOfLife(canvasId) {
 			}
 		}
 
-		for (var i = 0; i < this.playerCount; i++) {
+		for (i = 0; i < this.playerCount; i++) {
 			this.placePlayer(i, players[i]);
 		}
 
-		for (var i = 0; i < this.playerCount; i++) {
-			$("#p" + i + " .name").innerHTML = players[i].name;
-			$("#p" + i + " .name").css("color", "#" + players[i].trailColor);
-			$("#p" + i + " .result").css("color", "#" + players[i].color);
+		for (i = 0; i < this.playerCount; i++) {
+			$("#p" + i + " .name").html(players[i].name);
+			$("#p" + i + " .name").css("color", players[i].trailColor);
+			$("#p" + i + " .result").css("color", players[i].color);
 		}
 
 		this.draw();
@@ -67,7 +67,7 @@ function GameOfLife(canvasId) {
 
 	this.updateResult = function () {
 		for (var i = 0; i < this.playerCount; i++) {
-			$("#p" + i + " .result").innerHTML = this.result[i];
+			$("#p" + i + " .result").html(this.result[i]);
 		}
 	};
 
