@@ -72,10 +72,10 @@ function getGameSettings() {
         return {};
     }
     if (ownSettings === undefined) {
-        var reproduction = $('#reproduction').attr('checked') == 'checked' ? 1 : 0;
-        var survival = $('#survival').attr('checked') == 'checked' ? 1 : 0;
-        var defense = $('#defense').attr('checked') == 'checked' ? 1 : 0;
-        var attack = $('#attack').attr('checked') == 'checked' ? 1 : 0;
+        var reproduction = $('#reproduction').prop('checked') ? 1 : 0;
+        var survival = $('#survival').prop('checked') ? 1 : 0;
+        var defense = $('#defense').prop('checked') ? 1 : 0;
+        var attack = $('#attack').prop('checked') ? 1 : 0;
 
         ownSettings = {
             'name' : ownUsername,
