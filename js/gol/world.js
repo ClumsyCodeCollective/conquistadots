@@ -24,8 +24,8 @@ var world = {
     },
 
     draw: function () {
-        var width = this.cols * (this.cellSize + 1) + 1;
-        var height = this.rows * (this.cellSize + 1) + 1;
+        var width = this.cols * this.cellSize;
+        var height = this.rows * this.cellSize;
 
         this.canvas.setAttribute('height', height);
         this.canvas.setAttribute('width', width);
@@ -35,6 +35,9 @@ var world = {
 
         for (var i = 0; i < this.cols; i++) {
             for (var j = 0; j < this.cols; j++) {
+                if (!(i in this.grid)) {
+                    this.grid[i] = [];
+                }
                 this.drawCell(i, j, this.neutralState);
             }
         }
@@ -54,23 +57,20 @@ var world = {
         }
 
         this.context.fillRect(
-            (this.cellSize + 1) * i + 1,
-            (this.cellSize + 1) * j + 1,
+            this.cellSize * i,
+            this.cellSize * j,
             this.cellSize,
             this.cellSize
         );
 
-        if (!(i in this.grid)) {
-            this.grid[i] = [];
-        }
         this.grid[i][j] = state;
     },
 
     processClick: function (x, y) {
-        var col = Math.floor(x / (this.cellSize + 1)) - 1;
-        var row = Math.floor(y / (this.cellSize + 1)) - 1;
+        var col = Math.floor(x / this.cellSize);
+        var row = Math.floor(y / this.cellSize);
 
-//        this.drawCell(col, row, this.player);
+        this.drawCell(col, row, this.player);
     },
 
     setState: function (newState) {
@@ -96,7 +96,7 @@ var world = {
         },
 
         mouseMove: function (event) {
-            if (world.mouseHandler.mouseDown) {
+            if (world.mouseHandler.mouseDown && (event.pageX < this.width) && (event.pageY < this.height)) {
                 if ((event.pageX !== world.mouseHandler.lastX) || event.pageY !== world.mouseHandler.lastY) {
                     world.processClick(event.pageX, event.pageY);
                     world.mouseHandler.lastX = event.pageX;
