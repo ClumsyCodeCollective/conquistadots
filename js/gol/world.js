@@ -8,19 +8,22 @@ var world = {
     neutralState: '*',
     grid: [],
 
-    init: function (player, cols, rows, cellSize) {
-        this.player   = player;
+    init: function (cols, rows, cellSize) {
         this.cols     = cols;
         this.rows     = rows;
         this.cellSize = cellSize;
         this.canvas   = document.getElementById('canvas');
         this.context  = this.canvas.getContext('2d');
 
+        this.draw();
+    },
+
+    enablePlacementForPlayer: function (player) {
+        this.player = player;
+
         $(this.canvas).on("mousedown", this.mouseHandler.mouseDown);
         $(this.canvas).on("mouseup",   this.mouseHandler.mouseUp);
         $(this.canvas).on("mousemove", this.mouseHandler.mouseMove);
-
-        this.draw();
     },
 
     draw: function () {
@@ -66,13 +69,6 @@ var world = {
         this.grid[i][j] = state;
     },
 
-    processClick: function (x, y) {
-        var col = Math.floor(x / this.cellSize);
-        var row = Math.floor(y / this.cellSize);
-
-//        this.drawCell(col, row, this.player);
-    },
-
     setState: function (newState) {
         for (var i in newState) {
             for (var j in newState[i]) {
@@ -80,6 +76,18 @@ var world = {
                     this.drawCell(i, j, newState[i][j]);
                 }
             }
+        }
+    },
+
+    processClick: function (x, y) {
+        var col = Math.floor(x / (this.cellSize + 1)) - 1;
+        var row = Math.floor(y / (this.cellSize + 1)) - 1;
+
+        if (this.grid[col][row] == this.player) {
+            this.drawCell(col, row, '*');
+        }
+        else {
+            this.drawCell(col, row, this.player);
         }
     },
 
