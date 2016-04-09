@@ -1,10 +1,15 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <script src="http://cdn.jsdelivr.net/rtc/latest/rtc.min.js"/>
-    </head>
-    <body>
-        <span>RTC test</span>
-        <span id="messages"></span>
-    <script type="text/javascript" src="js/rtc.js" />
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>rtc test</title>
+</head>
+<body>
+    <input type="text" id="room_name" value="Room name"/>
+    <input type="text" id="username" value="Username"/>
+    <input type="button" id="connect" value="Connect"/>
+    <textarea id="messages"></textarea>
+    <script src="js/bower_components/rtc/dist/rtc.min.js"></script>
+    <script src="js/gol/rtc.js"></script>
+</body>
 </html>
