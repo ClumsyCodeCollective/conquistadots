@@ -1,9 +1,13 @@
-function Player(color, trailColor, initialState, x, y) {
+function Player(color, trailColor, initialState, x, y, reproductionMod, survivalMod, defenseMod, attackMod) {
 	this.color = color;
 	this.trailColor = trailColor;
 	this.initialState = initialState;
 	this.x = x;
 	this.y = y;
+	this.reproductionMod = reproductionMod;
+	this.survivalMod = survivalMod;
+	this.defenseMod = defenseMod;
+	this.attackMod = attackMod;
 }
 
 var players = [
@@ -14,12 +18,16 @@ var players = [
 		 [0, 0, 0, 1, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 1, 0, 0, 0],
 		 [0, 0, 1, 1, 1, 0, 0, 0],
-		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 1, 0, 0, 0, 0],
 		 [0, 0, 1, 1, 1, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0, 0, 0]],
 		56,
-		26
+		26,
+		0,
+		0,
+		1,
+		1
 	),
 	new Player(
 		'#00ff00',
@@ -28,12 +36,16 @@ var players = [
 		 [0, 0, 0, 1, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 1, 0, 0, 0],
 		 [0, 0, 1, 1, 1, 0, 0, 0],
-		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 1, 0, 0, 0, 0],
 		 [0, 0, 1, 1, 1, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0, 0, 0]],
 		176,
-		26
+		26,
+		0,
+		0,
+		1,
+		1
 	),
 	new Player(
 		'#0000ff',
@@ -42,11 +54,15 @@ var players = [
 		 [0, 0, 0, 1, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 1, 0, 0, 0],
 		 [0, 0, 1, 1, 1, 0, 0, 0],
-		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 1, 0, 0, 0, 0],
 		 [0, 0, 1, 1, 1, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0, 0, 0],
 		 [0, 0, 0, 0, 0, 0, 0, 0]],
 		116,
-		86
+		86,
+		1,
+		1,
+		0,
+		0
 	)
 ];

@@ -25,6 +25,7 @@ var gameOfLife = {
 	},
 
 	init: function() {
+		cellLogic.init();
 		this.playerCount = players.length;
 
 		for (var x = 0; x < this.width; x++) {
@@ -132,7 +133,7 @@ $(document).ready(function () {
 	gameOfLife.init();
 	$("#go").on("click", "",
 		function () {
-			setInterval(function(){gameOfLife.iterate()},1000)
+			setInterval(function(){gameOfLife.iterate()},10)
 		}
 	);
 });
