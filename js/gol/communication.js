@@ -129,11 +129,3 @@ $(document).ready(function() {
         });
     });
 });
-
-// Send message to every registered channel
-// messages.onkeyup = function(evt) {
-//     channels.forEach(function(channel) {
-//         console.log('send to peer ' + evt.target.value);
-//         channel.send(evt.target.value);
-//     });
-// };
