@@ -8,13 +8,17 @@ var gameOfLife = {
 
 	draw: function() {
 		world.setState(this.newState);
-		this.state = this.newState;
+		for (var x = 0; x < this.width; x++) {
+			for (var y = 0; y < this.height; y++) {
+				this.state[x][y] = this.newState[x][y];
+			}
+		}
 	},
 
 	placePlayer: function(i, player) {
-		for(var x = 0; x < player.initialState.length; x++) {
-			for (var y = 0; y < player.initialState[x].length; y++) {
-				this.newState[player.x + x][player.y + y] = player.initialState[x][y] ? i : this.deadCellPlaceholder;
+		for(var row = 0; row < player.initialState.length; row++) {
+			for (var col = 0; col < player.initialState[row].length; col++) {
+				this.newState[player.x + col][player.y + row] = player.initialState[row][col] ? i : this.deadCellPlaceholder;
 			}
 		}
 	},
@@ -60,37 +64,40 @@ var gameOfLife = {
 		}
 
 		if (x < this.width - 2 && y > 0) {
-			value = this.state[x+1][y-1];
+			value = this.state[x + 1][y - 1];
 			if (value != this.deadCellPlaceholder) {
 				neighbours[value]++;
 			}
 		}
 
 		if (x > 0) {
-			value = this.state[x-1][y];
+			value = this.state[x - 1][y];
 			if (value != this.deadCellPlaceholder) {
 				neighbours[value]++;
 			}
 		}
 
 		if (x < this.width - 2) {
-			value = this.state[x+1][y];
+			value = this.state[x + 1][y];
 			if (value != this.deadCellPlaceholder) {
 				neighbours[value]++;
 			}
 		}
+
 		if (x > 0 && y < this.height - 2) {
-			value = this.state[x-1][y+1];
+			value = this.state[x - 1][y + 1];
 			if (value != this.deadCellPlaceholder) {
 				neighbours[value]++;
 			}
 		}
+
 		if (y < this.height - 2) {
-			value = this.state[x][y+1];
+			value = this.state[x][y + 1];
 			if (value != this.deadCellPlaceholder) {
 				neighbours[value]++;
 			}
 		}
+
 		if (x < this.width - 2 && y - this.height - 2) {
 			value = this.state[x + 1][y + 1];
 			if (value != this.deadCellPlaceholder) {
@@ -109,7 +116,7 @@ var gameOfLife = {
 	iterate: function() {
 		for (var x = 0; x < this.width; x++) {
 			for (var y = 0; y < this.height; y++) {
-					this.iterateCell(x, y);
+				this.iterateCell(x, y);
 			}
 		}
 
@@ -120,10 +127,6 @@ var gameOfLife = {
 $(document).ready(function () {
 	world.init(1, 300, 200, 4);
 	gameOfLife.init();
-	alert('bubu');
-	gameOfLife.iterate();
-	alert('bubu');
-	gameOfLife.iterate();
-	alert('bubu');
-	gameOfLife.iterate();
+	setInterval(function(){gameOfLife.iterate()},1000);
+
 });
