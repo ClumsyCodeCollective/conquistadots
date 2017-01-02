@@ -190,15 +190,15 @@ $(document).ready(function() {
             channels: {
                 chat: true
             },
-            signaller: 'http://40.68.217.18:3000/',
-            ice: [
-                {url: 'stun:40.68.217.18:3478'},
-                {
-                    url: 'turn:40.68.217.18',
-                    credential: 'clumsy',
-                    username: 'conquistadots'
-                },
-            ],
+            // signaller: 'http://40.68.217.18:3000/',
+            // ice: [
+            //     {url: 'stun:40.68.217.18:3478'},
+            //     {
+            //         url: 'turn:40.68.217.18',
+            //         credential: 'clumsy',
+            //         username: 'conquistadots'
+            //     },
+            // ],
             room: 'goc_clumsy_' + realmName,
         });
 
